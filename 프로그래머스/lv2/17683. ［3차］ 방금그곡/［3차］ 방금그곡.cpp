@@ -4,9 +4,6 @@
 
 using namespace std;
 
-// 60점/100점
-// 7~9 12~15 17~18 21~24 실패
-
 struct song {
 	int idx;
 	int duration;
@@ -110,6 +107,7 @@ string solution(string m, vector<string> musicinfos) {
 
 		int minsize = music.size(); //비교시 마지막 # 있나 없나 할때 씀..
 
+		// 아랫줄 주석처리하니까 7~9 12~15 17~18 21~24 성공함..ㅠㅠ
 		//m크키가 더 클때 m자르기
 		//if (minsize > songs[i].duration) {
 		//	music = music.substr(0, songs[i].duration);
@@ -132,4 +130,10 @@ string solution(string m, vector<string> musicinfos) {
 	if (candidates.size() == 0) return answer;
 	sort(candidates.begin(), candidates.end());
 	return candidates[0].name;
+}
+
+int main() {
+	string answer = solution("CC#BCC#BCC#BCC#B", { "03:00,03:30,FOO,CC#B", "04:00,04:08,BAR,CC#BCC#BCC#B" });
+
+	return 0;
 }
