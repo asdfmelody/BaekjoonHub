@@ -2,6 +2,10 @@
 
 [문제 링크](https://programmers.co.kr/learn/courses/30/lessons/17683#) 
 
+### 7-9 12-15 17-18 21-24 실패원인
+https://programmers.co.kr/questions/12464
+-> 해당 코드 주석처리하니까 해결됨
+
 ### 성능 요약
 
 메모리: 3.76 MB, 시간: 0.82 ms
