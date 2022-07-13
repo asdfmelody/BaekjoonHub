@@ -1,70 +1,58 @@
 #include <string>
-#include <vector>
 #include <iostream>
-#include <queue>
+#include <vector>
 #include <algorithm>
+#include <queue>
 
 using namespace std;
 
-int arr[1001][1001];
+vector <int> v[1001];
+int dfs_used[1001];
 
-int N, M, sp; 
-vector<int>dfsUsed;
+queue<int> q;
+int bfs_used[1001];
 
-void dfs(int n) {
-	cout << n << " ";
-	for (int i = 1; i <= N; i++) {
-		if (dfsUsed[i] != 0) continue;
-		if (arr[n][i] == 1) {
-			arr[n][i] = 2;
-			arr[i][n] = 2;
-			dfsUsed[i] = 1;
-			dfs(i);
-		}
-	}
-}
+void dfs(int now) {
+	cout << now << " ";
+	dfs_used[now] = 1;
 
-void bfs(int n) {
-	queue<int> q;
-	vector<int> used(N+1, 0);
-	q.push(n);
-	used[n] = 1;
-	while (!q.empty()) {
-		int now = q.front();
-		q.pop();
-
-		cout << now << " ";
-
-		for (int to = 1; to <= N; to++) {
-			if (used[to] != 0) continue;
-			if (arr[now][to] == 0) continue;
-			used[to] = 1;
-			q.push(to);
-		}
-	}
-
-
-}
-
-void init() {
-	for (int i = 0; i < M; i++) {
-		int p1, p2;
-		cin >> p1 >> p2;
-		arr[p1][p2] = 1;
-		arr[p2][p1] = 1;
+	sort(v[now].begin(), v[now].end());
+	for (int i = 0; i < v[now].size(); i++) {
+		int to = v[now][i];
+		if (dfs_used[to] == 1) continue;
+		dfs(to);
 	}
 }
 
 int main() {
-	cin >> N >> M >> sp;
-	
-	init();
-
-	dfsUsed = vector<int>(N+1, 0);
-	dfsUsed[sp] = 1;
-	dfs(sp);
+	int N, M, V;
+	cin >> N >> M >> V;
+	for (int i = 0; i < M; i++) {
+		int from, to;
+		cin >> from >> to;
+		v[from].push_back(to);
+		v[to].push_back(from);
+	}
+	dfs(V);
 	cout << "\n";
-	bfs(sp);
 
+	q.push(V);
+	//bfs(V);
+	bfs_used[V] = 1;
+	while (!q.empty()) {
+		int now = q.front();
+		q.pop();
+
+		cout << now << " "; //왜 안됨? ㅡㅡ
+
+		sort(v[now].begin(), v[now].end());
+		for (int i = 0; i < v[now].size(); i++) {
+			int to = v[now][i];
+			if (bfs_used[to] != 0) continue;
+			if (to == 0) continue;
+			bfs_used[to] = 1;
+			q.push(to);
+		}
+	}
 	return 0;
 }
