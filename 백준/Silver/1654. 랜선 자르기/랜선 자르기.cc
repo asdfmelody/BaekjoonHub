@@ -1,38 +1,41 @@
-#include <string>
-#include <vector>
 #include <iostream>
-
+#include <vector>
 using namespace std;
 
+long long k;
+long long n;
+vector<long long> v;
+
 int main() {
-	int k, n;
-	cin >> k >> n;
-	vector<int> lan;
-	long long right = -1;
-	for (int i = 0; i < k; i++) {
-		int tmp;
-		cin >> tmp;
-		lan.push_back(tmp);
-		if (right < tmp) right = tmp;
-	}
+    ios_base::sync_with_stdio(0); cin.tie(0);
+    long long maxi = 0;
+    cin >> k >> n;
+    for (long long i = 0; i < k; i++) {
+        long long temp;
+        cin >> temp;
+        v.push_back(temp);
+        if (temp > maxi) maxi = temp;
+    }
 
-	long long left = 1;
-	int mx = 0;
-	while (left <= right) {
-		long long mid = (left+right) / 2;
-		int cnt = 0;
-		for (int i = 0; i < k; i++) {
-			cnt += lan[i] / mid;
-		}
-		if (cnt >= n) {
-			left = mid + 1;
-			if (mx < mid) mx = mid;
-		}
-		else {
-			right = mid - 1;
-		}
-	}
+    long long start = 1;
+    long long end = maxi;
+    long long max = -1;
+    long long sum = 0;
 
-	cout << mx;
+    while (start <= end) {
+        sum = 0;
+        long long mid = (start + end) / 2;
+        for (long long i = 0; i < k; i++) {
+            sum += v[i] / mid;
+        }
+        if (sum < n) { end = mid - 1; }
+        else {
+            start = mid + 1;
+            if (max < mid) max = mid;
+        }
+    }
 
+    cout << max;
+
+    return 0;
 }
