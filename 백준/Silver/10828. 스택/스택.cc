@@ -1,55 +1,50 @@
 #include <iostream>
-#include <string>
 using namespace std;
 
-int N;
-int arr[10001];
+int n;
+int stack[10001];
 int now;
 
 int main()
 {
-	cin >> N;
-	for (int i = 0; i < N; i++)
-	{
-		string input;
-		cin >> input;
-		if (input == "push")
-		{
-			int x;
-			cin >> x;
-			arr[now] = x;
+	ios::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+	
+	cin >> n;
+
+	for (int i = 0; i < n; i++) {
+		string action;
+		cin >> action;
+		if (action == "push") {
+			int k;
+			cin >> k;
+			stack[now] = k;
 			now++;
 		}
-		else if (input == "pop")
-		{
-			if (now == 0)
-			{
-				cout << -1 << "\n";
-				continue;
+		else if (action == "pop") {
+			if (now == 0) cout << -1;
+			else {
+				cout << stack[now-1];
+				now--;
 			}
-			now--;
-			cout << arr[now];
-			cout << "\n";
+			cout << '\n';
 		}
-		else if (input == "size")
-		{
+		else if (action == "size") {
 			cout << now;
-			cout << "\n";
+			cout << '\n';
 		}
-		else if (input == "empty")
-		{
-			now == 0 ? cout << 1 : cout << 0;
-			cout << "\n";
+		else if (action == "empty") {
+			if (now) cout << 0;
+			else cout << 1;
+			cout << '\n';
 		}
-		else if (input == "top")
-		{
-			if (now == 0)
-			{
-				cout << -1 << "\n";
-				continue;
-			}
-			cout << arr[now - 1];
-			cout << "\n";
+		else if (action == "top") {
+			if (now == 0)cout << -1;
+			else cout << stack[now-1];
+			cout << '\n';
 		}
 	}
+	
+	return 0;
 }
