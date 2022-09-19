@@ -1,58 +1,47 @@
 #include <iostream>
+#include <vector>
 #include <algorithm>
 using namespace std;
 
-int N;
-int an[100001];
-int M;
-int am[100001];
+int n, m;
+long long an[100001];
+long long am[100001];
 
-void bs(int n)
-{
-	// an에서 n찾기
-	// start mid end 는 index 기반
-	int start = 0;
-	int end = N - 1;
-	while (start <= end)
-	{
-		int mid = (start + end) / 2;
-		int now = an[mid];
-		if (now == n)
-		{
+void bs(long long in) {
+	long long left = 0;
+	long long right = n-1;
+	while (left <= right) {
+		long long mid = (long long)(left + right)/2;
+		if (in == an[mid]) {
 			cout << 1;
+			cout << '\n';
 			return;
 		}
-		else if (now > n)
-		{
-			end = mid - 1;
+		else if (in < an[mid]) {
+			right = mid - 1;
 		}
-		else
-		{
-			start = mid + 1;
+		else {
+			left = mid + 1;
 		}
 	}
 	cout << 0;
+	cout << '\n';
+	return;
 }
 
 int main()
 {
-	cin >> N;
-	for (int i = 0; i < N; i++)
-	{
+	cin >> n;
+	for (int i = 0; i < n; i++) {
 		cin >> an[i];
 	}
-	cin >> M;
-	for (int i = 0; i < M; i++)
-	{
+	sort(an, an + n);
+	cin >> m;
+	for (int i = 0; i < m; i++) {
 		cin >> am[i];
 	}
-
-	//an 정렬
-	sort(an, an + N);
-	for (int i = 0; i < M; i++)
-	{
+	for (int i = 0; i < m; i++) {
 		bs(am[i]);
-		cout << "\n";
 	}
+	return 0;
 }
-	
