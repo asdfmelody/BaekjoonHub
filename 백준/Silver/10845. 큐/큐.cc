@@ -1,64 +1,56 @@
 #include <iostream>
-#include <string>
 using namespace std;
 
-int N;
-int arr[10001];
-int start;
-int nd;
+int n;
+int stack[10001];
+int front;
+int back;
 
 int main()
 {
-	cin >> N;
-	for (int i = 0; i < N; i++)
-	{
-		string str;
-		cin >> str;
-		if (str == "push")
-		{
+	ios::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+	
+	cin >> n;
+
+	for (int i = 0; i < n; i++) {
+		string action;
+		cin >> action;
+		if (action == "push") {
 			int x;
 			cin >> x;
-			arr[nd] = x;
-			nd++;
+			stack[back] = x;
+			back++;
 		}
-		else if (str == "pop")
-		{
-			if (nd == start)
-			{
-				cout << -1 << "\n";
-				continue;
+		else if (action == "pop") {
+			if (front == back) cout << -1;
+			else {
+				cout << stack[front];
+				front++;
 			}
-			cout << arr[start] << "\n";
-			start++;
+			cout << '\n';
 		}
-		else if (str == "size")
-		{
-			cout << nd - start;
-			cout << "\n";
+		else if (action == "size") {
+			cout << back - front;
+			cout << '\n';
 		}
-		else if (str == "empty")
-		{
-			nd - start ? cout << 0 : cout << 1;
-			cout << "\n";
+		else if (action == "empty") {
+			if (front == back) cout << 1;
+			else cout << 0;
+			cout << '\n';
 		}
-		else if (str == "front")
-		{
-			if (nd == start)
-			{
-				cout << -1 << "\n";
-				continue;
-			}
-			cout << arr[start] << "\n";
+		else if (action == "front") {
+			if (front == back) cout << -1;
+			else cout << stack[front];
+			cout << '\n';
 		}
-		else if (str == "back")
-		{
-			if (nd == start)
-			{
-				cout << -1 << "\n";
-				continue;
-			}
-			cout << arr[nd-1] << "\n";
+		else if (action == "back") {
+			if (front == back) cout << -1;
+			else cout << stack[back-1];
+			cout << '\n';
 		}
 	}
-}
 	
+	return 0;
+}
