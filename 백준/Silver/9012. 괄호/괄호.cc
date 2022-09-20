@@ -1,29 +1,39 @@
 #include <iostream>
-#include <string>
+#include <vector>
+#include <algorithm>
 using namespace std;
 
-int T;
-string input;
+int n;
 
-bool run()
-{
-	int cnt = 0;
-	for (char c : input)
-	{
-		if (c == '(') cnt++;
-		else cnt--;
-		if (cnt < 0) return false;
+void check(string str) {
+	int len = str.size();
+	int open = 0;
+	for (int i = 0; i < len; i++) {
+		if (str[i] == '(')open++;
+		else open--;
+		if (open < 0) {
+			cout << "NO";
+			return;
+		}
 	}
-	if (cnt == 0) return true;
-	else return false;
+	if (open == 0) cout << "YES";
+	else cout << "NO";
+	return;
 }
 
 int main()
 {
-	cin >> T;
-	for (int tc = 0; tc < T; tc++)
-	{
+	ios::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	cin >> n;
+	for (int i = 0; i < n; i++) {
+		string input;
 		cin >> input;
-		run() ? cout << "YES\n" : cout << "NO\n";
+		check(input);
+		cout << "\n";
 	}
+
+	return 0;
 }
