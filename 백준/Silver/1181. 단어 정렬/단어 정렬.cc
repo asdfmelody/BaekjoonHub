@@ -1,33 +1,36 @@
 #include <iostream>
-#include <string>
 #include <algorithm>
 #include <vector>
 using namespace std;
 
-int N;
+int n;
 vector<string> arr;
-bool cmp(string a, string b)
-{
-	int al = a.length();
-	int bl = b.length();
-	if (al == bl) return a < b;
-	return al < bl;
+
+bool cmp(string a, string b) {
+	if (a.size() == b.size()) return a < b;
+	return a.size() < b.size();
 }
+
 int main()
 {
-	cin >> N;
-	for (int i = 0; i < N; i++)
-	{
+	ios::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+	
+	int n;
+	cin >> n;
+	for (int i = 0; i < n; i++) {
 		string input;
 		cin >> input;
 		arr.push_back(input);
 	}
-	sort(arr.begin(), arr.end(), cmp);
+	sort(arr.begin(), arr.end(),cmp);
 	arr.erase(unique(arr.begin(), arr.end()), arr.end());
-
-	for (int i = 0; i < arr.size(); i++)
-	{
-		cout << arr[i] << "\n";
+	int len = arr.size();
+	for (int i = 0; i < len; i++) {
+		cout << arr[i]<<"\n";
 	}
+	
+	
 	return 0;
 }
