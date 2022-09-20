@@ -1,14 +1,9 @@
 #include <iostream>
-#include <vector>
-#include <algorithm>
+#include <queue>
 using namespace std;
 
 int n, k;
-int now = 1;
-int cnt = 1;
-int endCnt;
-int used[5001];
-vector<int> answer;
+queue<int> q;
 
 int main()
 {
@@ -17,30 +12,22 @@ int main()
 	cout.tie(NULL);
 
 	cin >> n >> k;
-	while (1) {
-		if (used[now] == 1) {
-		}
-		else {
-			if (cnt == k) {
-				answer.push_back(now);
-				endCnt++;
-				used[now] = 1;
-				cnt = 1;
-			}
-			else {
-				cnt++;
-			}
-		}
-		// 마무리 (다음을 위해)
-		now++;
-		if (now == n+1) now = 1;
-		if (endCnt == n) break;
+
+	for (int i = 0; i < n; i++) {
+		q.push(i + 1);
 	}
+
 	cout << "<";
-	for (int i = 0; i < n-1; i++) {
-		cout << answer[i] << ", ";
+	while (q.size() > 1) {
+		for (int i = 0; i < k - 1; i++) {
+			int temp = q.front();
+			q.push(temp);
+			q.pop();
+		}
+		cout << q.front()<<", ";
+		q.pop();
 	}
-	cout << answer[n - 1];
+	cout << q.front();
 	cout << ">";
 	return 0;
 }
