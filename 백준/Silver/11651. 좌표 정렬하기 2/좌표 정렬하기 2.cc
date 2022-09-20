@@ -1,30 +1,38 @@
 #include <iostream>
-#include <stdio.h>
 #include <vector>
 #include <algorithm>
 using namespace std;
 
-struct Node {
-	int x, y;
+int n;
+struct Node{
+	int x,y;
 };
-bool operator< (Node left, Node right) {
-	if (left.y < right.y) return 1;
-	if (left.y > right.y) return 0;
-	return left.x < right.x;
+vector <Node> arr;
 
+bool cmp(Node a, Node b) {
+	if (a.y == b.y) return a.x < b.x;
+	return a.y < b.y;
 }
-int main() {
-	int n;
+
+int main()
+{
+	ios::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+	
 	cin >> n;
-	vector<Node> arr;
 	for (int i = 0; i < n; i++) {
 		int x, y;
 		cin >> x >> y;
 		arr.push_back({ x,y });
 	}
-	sort(arr.begin(), arr.end());
+
+	sort(arr.begin(), arr.end(), cmp);
+
+
 	for (int i = 0; i < n; i++) {
 		cout << arr[i].x << " " << arr[i].y << "\n";
 	}
+
 	return 0;
 }
